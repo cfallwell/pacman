@@ -1,14 +1,12 @@
 FROM alpine:3.19 AS repo
 
-ARG KEY_NAME="id_rsa"
-
 USER root
 
 RUN apk add --no-cache bash ca-certificates git openssh-client
 
 RUN mkdir -p -m 0700 /root/.ssh && ssh-keyscan "github.com" >> /root/.ssh/known_hosts
 
-RUN --mount=type=secret,id=my_ssh_key,dst=/root/.ssh/${KEY_NAME} \
+RUN --mount=type=secret,id=my_ssh_key,dst=/root/.ssh/id_rsa \
     mkdir -p /app && cd app \
     && ssh -T git@github.com || true \
     && git clone git@github.com:cfallwell/pacman.git

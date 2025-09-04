@@ -7,7 +7,6 @@ services:
         - my_ssh_key
       args:
         - KEY_NAME=id_rsa
-
 secrets:
   my_ssh_key:
     file: ${HOME}/.ssh/id_rsa
