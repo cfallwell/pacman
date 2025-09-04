@@ -1,13 +1,34 @@
-FROM node:boron
+FROM alpine:3.19 AS repo
 
-MAINTAINER Ivan Font <ifont@redhat.com>
+ARG KEY_NAME="id_rsa"
+
+USER root
+
+RUN apk add --no-cache bash ca-certificates git openssh-client
+
+RUN mkdir -p -m 0700 /root/.ssh && ssh-keyscan "github.com" >> /root/.ssh/known_hosts
+
+RUN --mount=type=secret,id=my_ssh_key,dst=/root/.ssh/${KEY_NAME} \
+    mkdir -p /app && cd app \
+    && ssh -T git@github.com || true \
+    && git clone git@github.com:cfallwell/pacman.git
+
+WORKDIR /app
+
+# Keep the container running
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+
+
+FROM node:boron AS build
+
+LABEL owner="Colin Fallwell" owner_email="212790803+cfallwell@users.noreply.github.com"
 
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Clone game source code
-RUN git clone https://github.com/cfallwell/pacman.git .
+COPY --from=0 /app/pacman /usr/src/app
 
 # Set envornment variables
 ENV OTEL_SERVICE_NAME='pacman'
