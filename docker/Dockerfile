@@ -11,7 +11,7 @@ RUN git clone https://github.com/cfallwell/pacman.git .
 RUN npm install
 
 # Expose port 8080
-EXPOSE 8280
+EXPOSE 8080
 
 # Setup OpenTelemetry
 ENV OTEL_SERVICE_NAME='pacman'
