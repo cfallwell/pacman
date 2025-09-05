@@ -13,7 +13,7 @@
 *.code-workspace
 .vscode
 .DS_Store
-
+package-lock.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
