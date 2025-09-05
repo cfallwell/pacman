@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 RUN git clone https://github.com/cfallwell/pacman.git .
 
 # Install app dependencies
-RUN npm install
+RUN npm install @splunk/otel
 
 # Expose port 8080
 EXPOSE 8080
@@ -22,4 +22,4 @@ ENV SPLUNK_METRICS_ENABLED='true'
 ENV SPLUNK_AUTOMATIC_LOG_COLLECTION='true'
 
 # Run container
-CMD ["npm", "start"]
+CMD ["npm", "@splunk/otel/instrument", "start"]
