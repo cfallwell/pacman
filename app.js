@@ -4,7 +4,7 @@ const { start } = require('@splunk/otel');
 start({
    logLevel: 'debug',
    serviceName: 'pacman',
-   endpoint: 'http://localhost:4318',
+   endpoint: 'http://192.168.0.254:4318',
    metrics: { runtimeMetricsEnabled: true },
    profiling: { memoryProfilingEnabled: true }
 });
