@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 *.env
+.envrc
 *.code-workspace
 .vscode
 .DS_Store
