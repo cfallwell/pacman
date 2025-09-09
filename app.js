@@ -3,18 +3,18 @@ const { start } = require('@splunk/otel');
 
 start({
    logLevel: 'debug',
-   serviceName: 'pacman',
-   endpoint: 'http://192.168.0.254:4318',
-   metrics: { runtimeMetricsEnabled: true },
-   profiling: { memoryProfilingEnabled: true }
+   serviceName: 'pacman'
 });
 
+var opentelemetry = require('@opentelemetry/api');
+var tracer = opentelemetry.trace.getTracer('pacman');
 var express = require('express');
 var path = require('path');
 var Database = require('./lib/database');
 var assert = require('assert');
 
 // Constants
+
 
 // Routes
 var highscores = require('./routes/highscores');
